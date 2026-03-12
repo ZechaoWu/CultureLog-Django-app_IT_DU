@@ -67,7 +67,7 @@ pip install -r requirements.txt
 
 ### 4. Configure environment variables
 
-Create a `.env` file in the project root and add the required variables.
+Copy `.env.example` to `.env` in the project root, then update the values as needed.
 
 Example:
 
@@ -153,6 +153,11 @@ It aims to demonstrate:
 * responsive design
 * testing
 * accessibility and sustainability considerations
+
+```env
+SECRET_KEY=your-secret-key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
 
 ## Authors
 

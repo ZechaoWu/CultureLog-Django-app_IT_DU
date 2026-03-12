@@ -2,3 +2,7 @@
 # 使用 Django 6.0.2 开发
 Django==6.0.2
 python-dotenv>=1.0.0
+gunicorn
+whitenoise
+dj-database-url
+psycopg2-binary

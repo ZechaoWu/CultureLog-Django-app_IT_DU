@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CultureLog — Server Error</title>
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav aria-label="Main navigation">
+            <a href="/" class="logo">CultureLog</a>
+        </nav>
+    </header>
+    <main class="container">
+        <div class="error-page">
+            <h1 class="error-code">500</h1>
+            <h2>Something Went Wrong</h2>
+            <p>An internal error occurred. Please try again later.</p>
+            <a href="/" class="btn">Back to Home</a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,102 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Browse{% endblock %}
+
+{% block content %}
+<div class="browse-header">
+    <h1>Browse Library</h1>
+
+    <!-- 搜索框 -->
+    <form method="get" action="{% url 'media_list' %}" class="search-form" role="search">
+        {% if filter_type %}
+            <input type="hidden" name="type" value="{{ filter_type }}">
+        {% endif %}
+        <label for="search-input" class="sr-only">Search by title</label>
+        <input
+            type="search"
+            id="search-input"
+            name="q"
+            value="{{ query }}"
+            placeholder="Search by title…"
+            class="search-input"
+            aria-label="Search by title"
+        >
+        <button type="submit" class="btn">Search</button>
+        {% if query %}
+            <a href="{% url 'media_list' %}{% if filter_type %}?type={{ filter_type }}{% endif %}" class="btn btn-secondary">Clear</a>
+        {% endif %}
+    </form>
+
+    <!-- 类型筛选 -->
+    <div role="group" aria-label="Filter by type">
+        <span class="filter-label">Filter:</span>
+        <a href="{% url 'media_list' %}{% if query %}?q={{ query }}{% endif %}"
+           class="btn btn-filter {% if not filter_type %}btn-filter-active{% else %}btn-filter-inactive{% endif %}"
+           {% if not filter_type %}aria-current="true"{% endif %}>All</a>
+        <a href="{% url 'media_list' %}?type=Movie{% if query %}&q={{ query }}{% endif %}"
+           class="btn btn-filter {% if filter_type == 'Movie' %}btn-filter-active{% else %}btn-filter-inactive{% endif %}"
+           {% if filter_type == 'Movie' %}aria-current="true"{% endif %}>Movies</a>
+        <a href="{% url 'media_list' %}?type=Book{% if query %}&q={{ query }}{% endif %}"
+           class="btn btn-filter {% if filter_type == 'Book' %}btn-filter-active{% else %}btn-filter-inactive{% endif %}"
+           {% if filter_type == 'Book' %}aria-current="true"{% endif %}>Books</a>
+    </div>
+</div>
+
+<!-- 结果数量提示 -->
+{% if query %}
+<p class="search-results-info">
+    Found {{ page_obj.paginator.count }} result{{ page_obj.paginator.count|pluralize }} for "<strong>{{ query }}</strong>"
+</p>
+{% endif %}
+
+<div class="card-grid">
+    {% for item in items %}
+        {% include 'core/includes/_media_card.html' with show_desc=True show_detail_btn=True %}
+    {% empty %}
+    <div class="empty-state">
+        <p>No items found{% if query %} for "{{ query }}"{% endif %}.</p>
+        <a href="{% url 'media_list' %}" class="btn">View All</a>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- 分页 -->
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Page navigation" class="pagination-nav">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link"
+               href="?page={{ page_obj.previous_page_number }}{% if filter_type %}&type={{ filter_type }}{% endif %}{% if query %}&q={{ query }}{% endif %}"
+               aria-label="Previous page">&laquo; Prev</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">&laquo; Prev</span></li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">{{ num }}</span>
+            </li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <li class="page-item">
+                <a class="page-link"
+                   href="?page={{ num }}{% if filter_type %}&type={{ filter_type }}{% endif %}{% if query %}&q={{ query }}{% endif %}">{{ num }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link"
+               href="?page={{ page_obj.next_page_number }}{% if filter_type %}&type={{ filter_type }}{% endif %}{% if query %}&q={{ query }}{% endif %}"
+               aria-label="Next page">Next &raquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">Next &raquo;</span></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

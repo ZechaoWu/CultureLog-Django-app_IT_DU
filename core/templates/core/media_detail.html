@@ -1,0 +1,89 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block content %}
+<div class="detail-layout">
+    <div class="detail-img-wrapper">
+        {% if item.image_url %}
+        <img src="{{ item.image_url }}" alt="{{ item.title }}" class="detail-img" width="400" height="600">
+        {% else %}
+        <img src="{% static 'core/img/no-image.svg' %}" alt="No image available" class="detail-img" width="400" height="600">
+        {% endif %}
+    </div>
+    <div class="detail-info">
+        <h1>{{ item.title }}</h1>
+        <p class="detail-meta">
+            <strong>Type:</strong> {{ item.type }} <br>
+            <strong>Released:</strong> {{ item.release_date }} <br>
+            <strong>Genres:</strong>
+            {% for genre in item.genres.all %}
+                <span class="genre-tag">{{ genre.name }}</span>
+            {% empty %}
+                <span>None</span>
+            {% endfor %}
+        </p>
+        <p class="detail-desc">{{ item.description }}</p>
+        {% if external_media %}
+        <section class="external-media-box" aria-label="External media metadata">
+            <h2>External Metadata</h2>
+            <p class="detail-meta">
+                <strong>Source:</strong> {{ external_media.source }}<br>
+                {% if external_media.artist %}<strong>Artist/Author:</strong> {{ external_media.artist }}<br>{% endif %}
+                {% if external_media.genre %}<strong>External Genre:</strong> {{ external_media.genre }}<br>{% endif %}
+            </p>
+            {% if external_media.description %}
+            <p class="detail-desc">{{ external_media.description|truncatechars:260 }}</p>
+            {% endif %}
+            {% if external_media.external_url %}
+            <p><a class="btn btn-secondary" href="{{ external_media.external_url }}" target="_blank" rel="noopener noreferrer">Open External Record</a></p>
+            {% endif %}
+        </section>
+        {% endif %}
+        {% if user == item.created_by or user.is_staff %}
+        <div class="detail-actions">
+            <a href="{% url 'delete_media' item.id %}" class="btn btn-danger btn-small">Delete Item</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<hr>
+
+<div class="reviews-layout">
+    <!-- Reviews List -->
+    <div class="reviews-list" id="reviews-list">
+        <h2 id="reviews-heading">Reviews (<span id="reviews-count">{{ reviews.count }}</span>)</h2>
+        {% for review in reviews %}
+            {% include 'core/includes/_review_card.html' %}
+        {% empty %}
+        <p>No reviews yet. Be the first to review!</p>
+        {% endfor %}
+    </div>
+
+    <!-- Add Review Form -->
+    <div class="review-form-wrapper">
+        <div class="review-box">
+            <h3>Write a Review</h3>
+            {% if user.is_authenticated %}
+                <div id="review-form-errors" class="alert" role="alert" hidden></div>
+                <form method="post" class="form-inline" id="review-form" data-async-url="{% url 'media_detail' item.id %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-full" id="review-submit-btn">Submit Review</button>
+                        <button type="button" class="btn btn-secondary" id="review-cancel-btn">Cancel</button>
+                    </div>
+                </form>
+            {% else %}
+                <p>Please <a href="{% url 'login' %}?next={{ request.path }}">login</a> to leave a review.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'core/js/review-ajax.js' %}" defer></script>
+{% endblock %}

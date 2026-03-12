@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Edit Review — {{ review.media_item.title }}{% endblock %}
+
+{% block content %}
+<div class="form-page">
+    <h1>Edit Review</h1>
+    <p class="form-subtitle">
+        Reviewing: <a href="{% url 'media_detail' review.media_item.id %}">{{ review.media_item.title }}</a>
+    </p>
+
+    <div class="form-card">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button type="submit" class="btn">Save Changes</button>
+                <a href="{% url 'media_detail' review.media_item.id %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

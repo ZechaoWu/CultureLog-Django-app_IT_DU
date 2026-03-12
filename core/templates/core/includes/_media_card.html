@@ -1,0 +1,18 @@
+<div class="card">
+    {% if item.image_url %}
+    <img src="{{ item.image_url }}" alt="{{ item.title }}" class="card-img" width="300" height="450" loading="lazy">
+    {% else %}
+    {% load static %}
+    <img src="{% static 'core/img/no-image.svg' %}" alt="No image available" class="card-img" width="300" height="450" loading="lazy">
+    {% endif %}
+    <div class="card-body">
+        <h3 class="card-title"><a href="{% url 'media_detail' item.id %}">{{ item.title }}</a></h3>
+        <div class="card-meta">{{ item.type }}{% if item.release_date %} | {{ item.release_date }}{% endif %}</div>
+        {% if show_desc %}
+            <p class="card-desc">{{ item.description|truncatechars:80 }}</p>
+        {% endif %}
+        {% if show_detail_btn %}
+            <a href="{% url 'media_detail' item.id %}" class="btn btn-full">View Details</a>
+        {% endif %}
+    </div>
+</div>

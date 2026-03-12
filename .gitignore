@@ -1,0 +1,33 @@
+# 敏感数据
+.env
+*.env.local
+*.env.production
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Django
+db.sqlite3
+staticfiles/
+mediafiles/
+
+# 虚拟环境
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.user
+
+# OS
+.DS_Store
+Thumbs.db

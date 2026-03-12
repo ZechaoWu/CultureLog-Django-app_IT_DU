@@ -1,0 +1,4 @@
+# CultureLog — Python 依赖
+# 使用 Django 6.0.2 开发
+Django==6.0.2
+python-dotenv>=1.0.0

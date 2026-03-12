@@ -1,0 +1,13 @@
+<div class="review-card">
+    <div class="review-header">
+        <strong>{{ review.user.username }}</strong>
+        <span class="rating">★ {{ review.rating }}/5</span>
+    </div>
+    <p class="review-comment">{{ review.comment }}</p>
+    <div class="review-footer">
+        <small class="review-date">{{ review.created_at|date:"M d, Y" }}</small>
+        {% if user == review.user %}
+        <a href="{% url 'edit_review' review.id %}" class="btn btn-small btn-secondary review-edit-link">Edit</a>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,32 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="form-wrapper">
+    <h1 class="form-header">Join CultureLog</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert" role="alert">Please correct the errors below.</div>
+        {% endif %}
+
+        {% for field in form %}
+            <p>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <span class="field-error" aria-live="polite">{{ field.errors|striptags }}</span>
+                {% endif %}
+            </p>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-submit">Register</button>
+    </form>
+
+    <div class="form-footer">
+        <p>Already have an account? <a href="{% url 'login' %}" class="form-link">Login here</a></p>
+    </div>
+</div>
+{% endblock %}

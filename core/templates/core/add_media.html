@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Add Item{% endblock %}
+
+{% block content %}
+<div class="form-wrapper">
+    <h1 class="form-header">Add a Book or Movie</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert" role="alert">Please correct the errors below.</div>
+        {% endif %}
+
+        {% for field in form %}
+            <p>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="help-text">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                    <span class="field-error" aria-live="polite">{{ field.errors|striptags }}</span>
+                {% endif %}
+            </p>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-submit">Add Item</button>
+    </form>
+</div>
+{% endblock %}

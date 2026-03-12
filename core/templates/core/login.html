@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="form-wrapper">
+    <h1 class="form-header">Welcome Back</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            <div class="alert" role="alert">Invalid username or password.</div>
+        {% endif %}
+
+        <p>
+            <label for="id_username">Username</label>
+            <input type="text" name="username" id="id_username" autocomplete="username" required>
+        </p>
+        <p>
+            <label for="id_password">Password</label>
+            <input type="password" name="password" id="id_password" autocomplete="current-password" required>
+        </p>
+
+        <button type="submit" class="btn btn-submit">Login</button>
+    </form>
+
+    <div class="form-footer">
+        <p>New to CultureLog? <a href="{% url 'register' %}" class="form-link">Create an account</a></p>
+    </div>
+</div>
+{% endblock %}

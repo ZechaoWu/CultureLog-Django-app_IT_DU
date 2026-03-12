@@ -1,0 +1,103 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="profile-header">
+    <div>
+        <div class="profile-avatar-wrap">
+            {% if profile_obj.avatar_url %}
+            <img src="{{ profile_obj.avatar_url }}" alt="{{ user.username }} avatar" class="profile-avatar" width="96" height="96">
+            {% else %}
+            <img src="{% static 'core/img/default-avatar.svg' %}" alt="Default avatar" class="profile-avatar" width="96" height="96">
+            {% endif %}
+        </div>
+        <h1 class="profile-username">{{ user.username }}</h1>
+        <p class="profile-joined">Member since: {{ user.date_joined|date:"F Y" }}</p>
+    </div>
+    <div class="profile-stats">
+        <div class="profile-stats-count">{{ total_reviews }}</div>
+        <div class="profile-stats-label">Reviews</div>
+    </div>
+</div>
+
+<section class="form-page">
+    <h2 class="section-title">Profile Avatar</h2>
+    <div class="form-card">
+        <form method="post" class="form-inline">
+            {% csrf_token %}
+            {{ profile_form.as_p }}
+            <div class="form-actions">
+                <button type="submit" class="btn">Save Avatar</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<h2 class="section-title">My Reviews</h2>
+
+<div class="card-grid">
+    {% for review in reviews %}
+    <div class="card">
+        {% if review.media_item.image_url %}
+        <div class="profile-card-img">
+            <img src="{{ review.media_item.image_url }}" alt="{{ review.media_item.title }}" width="300" height="150" loading="lazy">
+        </div>
+        {% endif %}
+        <div class="card-body">
+            <h3 class="card-title card-title-sm">
+                <a href="{% url 'media_detail' review.media_item.id %}" class="dark">{{ review.media_item.title }}</a>
+            </h3>
+            <div class="card-meta card-meta-row">
+                <span class="rating">★ {{ review.rating }}/5</span>
+                <span>{{ review.created_at|date:"M d, Y" }}</span>
+            </div>
+            <p class="review-quote">
+                "{{ review.comment|truncatechars:100 }}"
+            </p>
+            <div class="card-actions">
+                <a href="{% url 'media_detail' review.media_item.id %}" class="btn btn-small">View Item</a>
+                <a href="{% url 'edit_review' review.id %}" class="btn btn-small btn-secondary">Edit Review</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <p>You haven't written any reviews yet.</p>
+        <a href="{% url 'media_list' %}" class="btn">Start Browsing</a>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- 分页 -->
+{% if page_obj.paginator.num_pages > 1 %}
+<nav aria-label="Profile reviews pagination" class="pagination-nav">
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; Prev</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">&laquo; Prev</span></li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <li class="page-item active" aria-current="page"><span class="page-link">{{ num }}</span></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next &raquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled"><span class="page-link">Next &raquo;</span></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

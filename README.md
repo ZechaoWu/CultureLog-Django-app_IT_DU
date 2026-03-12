@@ -150,7 +150,7 @@ It also includes database interaction, user authentication, and interactive feat
 git clone https://github.com/ZechaoWu/CultureLog-Django-app_IT_DU.git
 cd CultureLog-Django-app_IT_DU
 
-
+```
 ### 2. Create and activate a virtual environment
 Windows
 python -m venv venv

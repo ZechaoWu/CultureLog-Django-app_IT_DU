@@ -158,8 +158,10 @@ venv\Scripts\activate
 macOS / Linux
 python3 -m venv venv
 source venv/bin/activate
+```
 ###3. Install dependencies
 pip install -r requirements.txt
+```
 ###4. Configure environment variables
 
 Create a .env file in the project root and add the required variables.
@@ -170,23 +172,20 @@ SECRET_KEY=your-secret-key
 DEBUG=True
 
 Add any other environment variables your project requires.
-
+```
 ### 5. Apply database migrations
 python manage.py migrate
+```
 ### 6. Run the development server
 python manage.py runserver
 
 Then open:
-
 http://127.0.0.1:8000/
 Running Tests
 
 To run the test suite:
-
 python manage.py test
-
 If needed, you can also run tests for a specific app:
-
 python manage.py test core
 Project Structure
 CultureLog-Django-app_IT_DU/
@@ -199,39 +198,23 @@ CultureLog-Django-app_IT_DU/
 ├── README.md
 └── STARTUP_GUIDE.md
 Notes for Production Deployment
-
+```
 Before deployment:
-
 Set DEBUG=False
-
 Configure ALLOWED_HOSTS
-
 Use environment variables for secrets
-
 Configure static file handling correctly
-
 Use a production-ready database if required by the hosting platform
-
 Coursework Context
-
 This project was developed as part of the Internet Technology (M) coursework on web application implementation.
-
 It aims to demonstrate:
-
 user authentication
-
 database interaction
-
 user input handling
-
 frontend interactivity
-
 responsive design
-
 testing
-
 accessibility and sustainability considerations
-
+```
 Authors
-
 ZechaoWu  ChengLi LuyiYuan

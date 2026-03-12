@@ -103,3 +103,135 @@ python manage.py test core
 3. 配置 `ALLOWED_HOSTS` 为实际域名
 4. 考虑将数据库从 SQLite 迁移至 PostgreSQL
 5. 配置静态文件服务（`python manage.py collectstatic`）
+
+
+
+# CultureLog
+
+A Django web application for tracking books and movies, managing personal entries, and writing reviews.
+
+## Overview
+
+CultureLog is a web application developed for the Internet Technology coursework.  
+It allows users to register and log in, browse and manage media items, submit reviews, search and filter content, and maintain a personalised media tracking experience.
+
+The project is built with Django on the backend and uses HTML, CSS, and JavaScript on the frontend.  
+It also includes database interaction, user authentication, and interactive features required by the coursework specification.
+
+## Main Features
+
+- User registration, login, and logout
+- Access-controlled user actions
+- Add, edit, and browse media items
+- Submit, edit, and display reviews
+- Search and filter media content
+- Profile-related functionality
+- Django-based server-rendered interface with client-side interactivity
+- Responsive UI for common screen sizes
+
+## Tech Stack
+
+- **Backend:** Python, Django
+- **Frontend:** HTML, CSS, JavaScript
+- **Database:** SQLite (development)
+- **Testing:** Django test framework
+- **Version Control:** Git + GitHub
+
+## Links
+
+- **Repository:** https://github.com/ZechaoWu/CultureLog-Django-app_IT_DU
+- **Deployed Application:** _Add your public deployment URL here_
+
+## Local Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/ZechaoWu/CultureLog-Django-app_IT_DU.git
+cd CultureLog-Django-app_IT_DU
+
+
+2. Create and activate a virtual environment
+Windows
+python -m venv venv
+venv\Scripts\activate
+macOS / Linux
+python3 -m venv venv
+source venv/bin/activate
+3. Install dependencies
+pip install -r requirements.txt
+4. Configure environment variables
+
+Create a .env file in the project root and add the required variables.
+
+Example:
+
+SECRET_KEY=your-secret-key
+DEBUG=True
+
+Add any other environment variables your project requires.
+
+5. Apply database migrations
+python manage.py migrate
+6. Run the development server
+python manage.py runserver
+
+Then open:
+
+http://127.0.0.1:8000/
+Running Tests
+
+To run the test suite:
+
+python manage.py test
+
+If needed, you can also run tests for a specific app:
+
+python manage.py test core
+Project Structure
+CultureLog-Django-app_IT_DU/
+├── config/        # Django project configuration
+├── core/          # Main app: models, views, forms, tests, URLs
+├── docs/          # Supporting project documentation
+├── templates/     # HTML templates
+├── manage.py
+├── requirements.txt
+├── README.md
+└── STARTUP_GUIDE.md
+Notes for Production Deployment
+
+Before deployment:
+
+Set DEBUG=False
+
+Configure ALLOWED_HOSTS
+
+Use environment variables for secrets
+
+Configure static file handling correctly
+
+Use a production-ready database if required by the hosting platform
+
+Coursework Context
+
+This project was developed as part of the Internet Technology (M) coursework on web application implementation.
+
+It aims to demonstrate:
+
+user authentication
+
+database interaction
+
+user input handling
+
+frontend interactivity
+
+responsive design
+
+testing
+
+accessibility and sustainability considerations
+
+Authors
+
+ZechaoWu  ChengLi LuyiYuan

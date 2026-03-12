@@ -151,16 +151,16 @@ git clone https://github.com/ZechaoWu/CultureLog-Django-app_IT_DU.git
 cd CultureLog-Django-app_IT_DU
 
 
-2. Create and activate a virtual environment
+### 2. Create and activate a virtual environment
 Windows
 python -m venv venv
 venv\Scripts\activate
 macOS / Linux
 python3 -m venv venv
 source venv/bin/activate
-3. Install dependencies
+###3. Install dependencies
 pip install -r requirements.txt
-4. Configure environment variables
+###4. Configure environment variables
 
 Create a .env file in the project root and add the required variables.
 
@@ -171,9 +171,9 @@ DEBUG=True
 
 Add any other environment variables your project requires.
 
-5. Apply database migrations
+### 5. Apply database migrations
 python manage.py migrate
-6. Run the development server
+### 6. Run the development server
 python manage.py runserver
 
 Then open:

@@ -32,7 +32,7 @@ The project is built with Django on the backend and uses HTML, CSS, and JavaScri
 ## Links
 
 - **Repository:** https://github.com/ZechaoWu/CultureLog-Django-app_IT_DU
-- **Deployed Application:** _Add your public deployment URL here_
+- **Deployed Application:https://culturelog-django-app-it-du.onrender.com
 
 ## Local Setup
 

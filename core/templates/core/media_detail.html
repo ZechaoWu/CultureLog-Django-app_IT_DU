@@ -7,9 +7,9 @@
 <div class="detail-layout">
     <div class="detail-img-wrapper">
         {% if item.image_url %}
-        <img src="{{ item.image_url }}" alt="{{ item.title }}" class="detail-img" width="400" height="600">
+        <img src="{{ item.image_url }}" alt="{{ item.title }}" class="detail-img" width="400" height="600" fetchpriority="high" decoding="async">
         {% else %}
-        <img src="{% static 'core/img/no-image.svg' %}" alt="No image available" class="detail-img" width="400" height="600">
+        <img src="{% static 'core/img/no-image.svg' %}" alt="No image available" class="detail-img" width="400" height="600" fetchpriority="high" decoding="async">
         {% endif %}
     </div>
     <div class="detail-info">

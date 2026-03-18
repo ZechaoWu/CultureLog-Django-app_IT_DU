@@ -8,9 +8,9 @@
     <div>
         <div class="profile-avatar-wrap">
             {% if profile_obj.avatar_url %}
-            <img src="{{ profile_obj.avatar_url }}" alt="{{ user.username }} avatar" class="profile-avatar" width="96" height="96">
+            <img src="{{ profile_obj.avatar_url }}" alt="{{ user.username }} avatar" class="profile-avatar" width="96" height="96" decoding="async">
             {% else %}
-            <img src="{% static 'core/img/default-avatar.svg' %}" alt="Default avatar" class="profile-avatar" width="96" height="96">
+            <img src="{% static 'core/img/default-avatar.svg' %}" alt="Default avatar" class="profile-avatar" width="96" height="96" decoding="async">
             {% endif %}
         </div>
         <h1 class="profile-username">{{ user.username }}</h1>
@@ -42,7 +42,7 @@
     <div class="card">
         {% if review.media_item.image_url %}
         <div class="profile-card-img">
-            <img src="{{ review.media_item.image_url }}" alt="{{ review.media_item.title }}" width="300" height="150" loading="lazy">
+            <img src="{{ review.media_item.image_url }}" alt="{{ review.media_item.title }}" width="300" height="150" loading="lazy" decoding="async">
         </div>
         {% endif %}
         <div class="card-body">

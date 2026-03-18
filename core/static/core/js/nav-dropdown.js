@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   var menu = toggle.nextElementSibling;
+  if (!menu) {
+    return;
+  }
 
   toggle.addEventListener('click', function (event) {
     event.preventDefault();

@@ -1,9 +1,9 @@
 <div class="card">
     {% if item.image_url %}
-    <img src="{{ item.image_url }}" alt="{{ item.title }}" class="card-img" width="300" height="450" loading="lazy">
+    <img src="{{ item.image_url }}" alt="{{ item.title }}" class="card-img" width="300" height="450" loading="lazy" decoding="async">
     {% else %}
     {% load static %}
-    <img src="{% static 'core/img/no-image.svg' %}" alt="No image available" class="card-img" width="300" height="450" loading="lazy">
+    <img src="{% static 'core/img/no-image.svg' %}" alt="No image available" class="card-img" width="300" height="450" loading="lazy" decoding="async">
     {% endif %}
     <div class="card-body">
         <h3 class="card-title"><a href="{% url 'media_detail' item.id %}">{{ item.title }}</a></h3>
